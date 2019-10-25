@@ -1,0 +1,23 @@
+version: '3.5' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  angular-service: # name of the first service
+    container_name: angular-app
+    build: ./angular-app # specify the directory of the Dockerfile
+    ports:
+      - 4200:4200 # specify port forewarding
+    volumes:
+      - ./angular-app:/usr/src/app
+    command: >
+      bash -c "npm install && ng serve --host 0.0.0.0"
+
+  express-service: #name of the second service
+    container_name: express-server
+    build: ./express-server # specify the directory of the Dockerfile
+    ports:
+      - 3000:3000 #specify ports forewarding
+    volumes:
+      - ./express-server:/usr/src/app
+    command: >
+      bash -c "npm install && npm start --host 0.0.0.0 -port 3000"
